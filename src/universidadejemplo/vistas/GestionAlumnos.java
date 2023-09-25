@@ -1,24 +1,22 @@
-
 package universidadejemplo.vistas;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import static java.time.temporal.TemporalQueries.localDate;
 import javax.swing.JOptionPane;
 import universidadejemplo.accesoADatos.AlumnoData;
 import universidadejemplo.entidades.Alumno;
-
 
 public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     public GestionAlumnos() {
         initComponents();
         
+        jbGuardarAlumno.setEnabled(false);
+        jtDocumento.setEditable(true);
+
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -294,11 +292,11 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jtNombre.setText("");
 
         jDateFechaNacimiento.setDate(null);
-
-        buttonGroup1.clearSelection();
+        jtDocumento.setEditable(true);
         jbNuevoAlumno.setEnabled(true);
-         jRadioButtonEstado.setSelected(false);
-        
+        jRadioButtonEstado.setSelected(false);
+        jbGuardarAlumno.setEnabled(false);
+
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jRadioButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstadoActionPerformed
@@ -310,33 +308,27 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jtApellido.setEnabled(true);
         jtNombre.setEnabled(true);
         jDateFechaNacimiento.setEnabled(true);
+        jbGuardarAlumno.setEnabled(true);
 
     }//GEN-LAST:event_jRadioButtonEstadoMouseClicked
 
     private void jbBuscarAlumnoDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarAlumnoDniActionPerformed
 
-        jtApellido.setEnabled(true);
-        jtNombre.setEnabled(true);
-        jDateFechaNacimiento.setEnabled(true);
-        jbNuevoAlumno.setEnabled(true);
-        jbEliminar.setEnabled(false);
-
-        jbGuardarAlumno.setEnabled(false);
-        
-
         boolean r = false;
-        
-        //////
-        if(!validarDocumento(jtDocumento.getText().trim())){
-        JOptionPane.showMessageDialog(null, "Debe ingresar el documento");
-        jtDocumento.setText("");
+
+        if (!jtDocumento.getText().matches("[0-9]*")) {
+
+            JOptionPane.showMessageDialog(null, "Debe ingresar el documento");
+            jtDocumento.setText("");
         }
         int documento = Integer.parseInt(jtDocumento.getText());
-        
+
         AlumnoData alu = new AlumnoData();
         Alumno encontrado = alu.BuscarAlumnoProDni(documento);
 
         if (encontrado.isEstado() == r) {
+
+            jtDocumento.setEditable(false);
 
             jtApellido.setText(encontrado.getApellido());
             jtNombre.setText(encontrado.getNombre());
@@ -346,26 +338,21 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             jtApellido.setEnabled(false);
             jtNombre.setEnabled(false);
             jDateFechaNacimiento.setEnabled(false);
-            
-            
+            jbGuardarAlumno.setEnabled(true);
             jbNuevoAlumno.setEnabled(false);
             jbEliminar.setEnabled(false);
-            jbGuardarAlumno.setEnabled(true);
             jRadioButtonEstado.setSelected(false);
 
         } else {
-            jtApellido.setEnabled(true);
-            jtNombre.setEnabled(true);
-            jDateFechaNacimiento.setEnabled(true);
+            jtDocumento.setEditable(false);
+
             jtApellido.setText(encontrado.getApellido());
             jtNombre.setText(encontrado.getNombre());
             Date sqldate = Date.valueOf(encontrado.getFechaNacimiento());
             jDateFechaNacimiento.setDate(sqldate);
-            jbEliminar.setEnabled(true);
             jbGuardarAlumno.setEnabled(true);
+            jbNuevoAlumno.setEnabled(false);
             jRadioButtonEstado.setSelected(true);
-           
-            
 
         }
 
@@ -392,9 +379,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jtApellido.setText("");
         jtNombre.setText("");
         jDateFechaNacimiento.setDate(null);
-        buttonGroup1.clearSelection();
+        jbNuevoAlumno.setEnabled(true);
         jRadioButtonEstado.setSelected(false);
-
+        jtDocumento.setEditable(true);
 
     }//GEN-LAST:event_jbGuardarAlumnoActionPerformed
 
@@ -405,42 +392,56 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private void jbNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoAlumnoActionPerformed
 
         // TODO add your handling code here:
-        int documento = Integer.parseInt(jtDocumento.getText());
-        String apellido = jtApellido.getText();
-        String nombre = jtNombre.getText();
-        boolean activo = jRadioButtonEstado.isSelected();
+        if (jtDocumento.getText().isEmpty() || !jtDocumento.getText().matches("[0-9]*")) {
 
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+            JOptionPane.showMessageDialog(null, "Debe ingresar el documento correctamente");
+            jtDocumento.setText("");
+        } else {
 
-        String fe = date.format(jDateFechaNacimiento.getDate());
+            if (jtApellido.getText().isEmpty() || !jtApellido.getText().matches("[a-zA-Z]*")) {
 
-        LocalDate fecha = LocalDate.parse(fe);
+                JOptionPane.showMessageDialog(null, "Debe ingresar el Apellido correctamente");
+                jtApellido.setText("");
+            } else {
+                if (jtNombre.getText().isEmpty() || !jtNombre.getText().matches("[a-zA-Z]*")) {
 
-        Alumno compa = new Alumno(documento, apellido, nombre, fecha, activo);
-        AlumnoData alu = new AlumnoData();
-        alu.guardarAlumno(compa);
+                    JOptionPane.showMessageDialog(null, "Debe ingresar el Nombre correctamente");
+                    jtNombre.setText("");
+                } else {
 
-        jtDocumento.setText("");
-        jtApellido.setText("");
-        jtNombre.setText("");
+                    int documento = Integer.parseInt(jtDocumento.getText());
+                    String apellido = jtApellido.getText();
+                    String nombre = jtNombre.getText();
+                    boolean activo = jRadioButtonEstado.isSelected();
 
-        jDateFechaNacimiento.setDate(null);
+                    SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+                    String fe = date.format(jDateFechaNacimiento.getDate());
+                    LocalDate fecha = LocalDate.parse(fe);
 
-        buttonGroup1.clearSelection();
-         jRadioButtonEstado.setSelected(false);
+                    Alumno compa = new Alumno(documento, apellido, nombre, fecha, activo);
+                    AlumnoData alu = new AlumnoData();
+                    alu.guardarAlumno(compa);
 
+                    jtDocumento.setText("");
+                    jtApellido.setText("");
+                    jtNombre.setText("");
+                    jDateFechaNacimiento.setDate(null);
+                    jRadioButtonEstado.setSelected(false);
+                }
+            }
     }//GEN-LAST:event_jbNuevoAlumnoActionPerformed
-
+    }
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
 
         // TODO add your handling code here:
-        
-         jtDocumento.setText("");
+        jtDocumento.setText("");
         jtApellido.setText("");
         jtNombre.setText("");
+        jtDocumento.setEditable(true);
         jDateFechaNacimiento.setDate(null);
-        buttonGroup1.clearSelection();
-         jRadioButtonEstado.setSelected(false);
+        jbNuevoAlumno.setEnabled(true);
+        jRadioButtonEstado.setSelected(false);
+        jbGuardarAlumno.setEnabled(false);
 
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
@@ -452,12 +453,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreActionPerformed
 
-    public static boolean validarDocumento(String doc){
-    
-    return doc.matches("[0-9]*");
-    
-    }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser jDateFechaNacimiento;

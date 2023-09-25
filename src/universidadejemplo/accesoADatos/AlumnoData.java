@@ -52,36 +52,7 @@ public class AlumnoData {
     }
 
     
-   /* public void modificarAlumno(int dni, boolean nuevoEstado) {
 
-        String IdSQL = "SELECT idAlumno FROM alumno WHERE dni=?";
-        String EsSQL = "UPDATE alumno SET estado=? WHERE idAlumno=?";
-
-        try {
-            // Obtengo el idAlumno a partir del dni
-            PreparedStatement IdPs = con.prepareStatement(IdSQL);
-            IdPs.setInt(1, dni);
-            ResultSet resultSet = IdPs.executeQuery();
-
-            if (resultSet.next()) {
-                int idAlumno = resultSet.getInt("idAlumno");
-
-                //  el estado del alumno se actualiza
-                PreparedStatement Ps = con.prepareStatement(EsSQL);
-                Ps.setBoolean(1, nuevoEstado);
-                Ps.setInt(2, idAlumno);
-                int exito = Ps.executeUpdate();
-
-                if (exito == 1) {
-                    JOptionPane.showMessageDialog(null, "Estado del alumno modificado exitosamente");
-                }
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos: " + ex.getMessage());
-        }
-    }
-*/
     
     public void modificarAlumno(Alumno alumno) {
     String obtenerIdAlumnoSQL = "SELECT idAlumno FROM alumno WHERE dni=?";

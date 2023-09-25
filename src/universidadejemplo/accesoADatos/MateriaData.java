@@ -63,32 +63,34 @@ public class MateriaData {
         }
     }
     
-    public void modificarMateria(Materia materia) {
+    
+  
+public void modificarEstadoMateria(int idMateria, String nombre, boolean nuevoEstado) {
+    String sql = "UPDATE materia SET estado=?, nombre=? WHERE idMateria=?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
 
-        String sql = "UPDATE materia SET nombre=?,año=?,estado=?"
-                + "WHERE idMateria=?";
-        try {
+        ps.setBoolean(1, nuevoEstado);
+        ps.setString(2, nombre);
+        ps.setInt(3, idMateria);
 
-            PreparedStatement ps = con.prepareStatement(sql);
+        int exito = ps.executeUpdate();
 
-            ps.setString(1, materia.getNombre());
-            ps.setInt(2, materia.getAño());
-            ps.setBoolean(3, materia.isEstado());
-            ps.setInt(4, materia.getIdMateria());
-
-            int exito = ps.executeUpdate();
-
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Materia modificada exitosamente");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos" + ex.getMessage());
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "Estado de la materia modificado exitosamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo modificar el estado de la materia");
         }
 
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos: " + ex.getMessage());
     }
+}
+  
     
-    public Materia buscarMateria(int idMateria) {
+    public Materia buscarMateriaId(int idMateria) {
 
         String sql = "SELECT nombre, año, estado FROM materia WHERE idMateria=?";
         Materia materia = null;
@@ -119,7 +121,7 @@ public class MateriaData {
     }   
 
    public Materia buscarMateria( String nombre) {
-    String sql = "SELECT idMateria,nombre, año, estado FROM materia WHERE nombre=? OR estado=1";
+    String sql = "SELECT *FROM materia WHERE nombre=? ";
     Materia materia = null;
 
     try {

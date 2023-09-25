@@ -159,8 +159,7 @@ public class ConsultaDeAlumnos extends javax.swing.JInternalFrame {
                 alumno.getApellido(),
                 alumno.getNombre(),
                 alumno.getFechaNacimiento()});
-                //alumno.isEstado()});
-
+               
         }
 
         

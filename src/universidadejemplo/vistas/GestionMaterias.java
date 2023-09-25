@@ -312,7 +312,6 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
                     jtAnioMateria.setText(encontrada.getAño() + "");
 
                     jbGuardarMateria.setEnabled(false);
-                    jtCodigo.setEditable(false);
                     jtNombreMateria.setEnabled(false);
                     jtAnioMateria.setEnabled(false);
                     jRadioButtonEstadoMateria.setSelected(false);
@@ -358,7 +357,8 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
 
         LimpiarCampos();
-        jRadioButtonEstadoMateria.setSelected(true);
+        jRadioButtonEstadoMateria.setSelected(true);   
+        jtCodigo.setEditable(true);
     }//GEN-LAST:event_jbLimpiarActionPerformed
     public static boolean validarId(String id, String nom) {
 

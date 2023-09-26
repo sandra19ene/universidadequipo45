@@ -55,7 +55,7 @@ public class MateriaData {
 
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Alumno eliminado exitosamente");
+                JOptionPane.showMessageDialog(null, "Materia eliminado exitosamente");
             }
             ps.close();
         }catch (SQLException ex) {

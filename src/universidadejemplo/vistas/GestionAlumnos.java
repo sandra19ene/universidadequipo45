@@ -308,7 +308,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jtApellido.setEnabled(true);
         jtNombre.setEnabled(true);
         jDateFechaNacimiento.setEnabled(true);
-        jbGuardarAlumno.setEnabled(true);
+       // jbGuardarAlumno.setEnabled(true);
 
     }//GEN-LAST:event_jRadioButtonEstadoMouseClicked
 
@@ -382,6 +382,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jbNuevoAlumno.setEnabled(true);
         jRadioButtonEstado.setSelected(false);
         jtDocumento.setEditable(true);
+         jbGuardarAlumno.setEnabled(false);
 
     }//GEN-LAST:event_jbGuardarAlumnoActionPerformed
 

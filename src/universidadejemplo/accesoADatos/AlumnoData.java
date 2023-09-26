@@ -45,7 +45,8 @@ public class AlumnoData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"El alumno ya existe");
 
         }
 

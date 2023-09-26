@@ -251,6 +251,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         jtAnioMateria.setText("");
         jbNuevoMateria.setEnabled(true);
         jRadioButtonEstadoMateria.setSelected(false);
+        jbGuardarMateria.setEnabled(false);
 
     }//GEN-LAST:event_jbEliminarMateriaActionPerformed
 

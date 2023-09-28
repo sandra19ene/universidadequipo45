@@ -46,6 +46,7 @@ public class ConsultaDeAlumnos extends javax.swing.JInternalFrame {
         jtTablaAlumnos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Consulta de Alumnos por Materia");
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));

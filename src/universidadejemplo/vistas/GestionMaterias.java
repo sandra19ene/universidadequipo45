@@ -10,12 +10,9 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
 
     public GestionMaterias() {
         initComponents();
-        
-        
+
         jbGuardarMateria.setEnabled(false);
-        
-        
-         
+
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +38,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         jbLimpiar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setClosable(true);
         setForeground(java.awt.Color.black);
         setTitle("Gestion de Materias");
 
@@ -221,13 +219,13 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         int codigo = Integer.parseInt(jtCodigo.getText());
-        String nombre= jtNombreMateria.getText();
+        String nombre = jtNombreMateria.getText();
         if (jRadioButtonEstadoMateria.isSelected()) {
 
             boolean activo = true;
 
             MateriaData mat = new MateriaData();
-            mat.modificarEstadoMateria(codigo,nombre,activo);
+            mat.modificarEstadoMateria(codigo, nombre, activo);
 
             jtCodigo.setText("");
             jtNombreMateria.setText("");
@@ -256,29 +254,49 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarMateriaActionPerformed
 
     private void jbNuevoMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoMateriaActionPerformed
+//
+//        if (!validarId(jtCodigo.getText(), jtNombreMateria.getText())) {
+//            JOptionPane.showMessageDialog(null, "ERROR Ingrese los datos correctamente");
+//            jtNombreMateria.setText("");
+//            jtCodigo.setText("");
 
-        if (!validarId(jtCodigo.getText(), jtNombreMateria.getText())) {
-            JOptionPane.showMessageDialog(null, "ERROR Ingrese los datos correctamente");
-            jtNombreMateria.setText("");
+        if (!jtCodigo.getText().matches("[0-9]{3}")) {
+
+            JOptionPane.showMessageDialog(null, "Debe ingresar el IdMateria correctamente");
             jtCodigo.setText("");
+
         } else {
 
-            String nombreMat = jtNombreMateria.getText();
-            int AnioCurso = Integer.parseInt(jtAnioMateria.getText());
-            
-           
-            if (jRadioButtonEstadoMateria.isSelected()) {
+            if (jtNombreMateria.getText().isEmpty() || !jtNombreMateria.getText().matches("[a-zA-Z\\s-]*")) {
 
-                boolean activo = true;
+                JOptionPane.showMessageDialog(null, "Debe ingresar el Nombre de la Materia correctamente");
+                jtNombreMateria.setText("");
 
-                Materia materia = new Materia(nombreMat, AnioCurso, activo);
-                MateriaData mat = new MateriaData();
-                mat.guardarMateria(materia);
-                LimpiarCampos();
+            } else {
+
+                if (jtAnioMateria.getText().isEmpty() || !jtAnioMateria.getText().matches("[0-9]{2}")) {
+
+                    JOptionPane.showMessageDialog(null, "Debe ingresar el Año del curso correctamente");
+                    jtAnioMateria.setText("");
+                } else {
+
+                    String nombreMat = jtNombreMateria.getText();
+                    int AnioCurso = Integer.parseInt(jtAnioMateria.getText());
+
+                    if (jRadioButtonEstadoMateria.isSelected()) {
+
+                        boolean activo = true;
+
+                        Materia materia = new Materia(nombreMat, AnioCurso, activo);
+                        MateriaData mat = new MateriaData();
+                        mat.guardarMateria(materia);
+                        LimpiarCampos();
+
+                    }
+                }
 
             }
         }
-
     }//GEN-LAST:event_jbNuevoMateriaActionPerformed
 
     private void jRadioButtonEstadoMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstadoMateriaActionPerformed
@@ -286,8 +304,6 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         jtNombreMateria.setEnabled(true);
         jtAnioMateria.setEnabled(true);
-
-       // jbGuardarMateria.setEnabled(true);
 
 
     }//GEN-LAST:event_jRadioButtonEstadoMateriaActionPerformed
@@ -297,80 +313,95 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         boolean r = false;
 
         MateriaData mat = new MateriaData();
+try{
+        if (!jtCodigo.getText().matches("[0-9]*")) {
 
-        if (!validarId(jtCodigo.getText().trim(), jtNombreMateria.getText())) {
-            JOptionPane.showMessageDialog(null, "ERROR Ingrese los datos correctamente");
-            jtNombreMateria.setText("");
+            JOptionPane.showMessageDialog(null, "Debe ingresar el IdMateria correctamente");
             jtCodigo.setText("");
+
         } else {
 
-            if (jtCodigo.getText().equals("")) {
+            if (!jtNombreMateria.getText().matches("[a-zA-Z\\s-]*")) {
 
-                String nombre = jtNombreMateria.getText();
-                Materia encontrada = mat.buscarMateria(nombre);
-
-                if (encontrada.isEstado() == r) {
-                    jtCodigo.setText(encontrada.getIdMateria() + "");
-                    jtNombreMateria.setText(encontrada.getNombre());
-                    jtAnioMateria.setText(encontrada.getAño() + "");
-                    
-                    jtNombreMateria.setEnabled(false);
-                    jtAnioMateria.setEnabled(false);
-                    jRadioButtonEstadoMateria.setSelected(false);
-                    jbNuevoMateria.setEnabled(false);
-                    jbGuardarMateria.setEnabled(true);
-                } else {
-
-                    jtCodigo.setText(encontrada.getIdMateria() + "");
-                    jtNombreMateria.setText(encontrada.getNombre());
-                    jtAnioMateria.setText(encontrada.getAño() + "");
-
-                    jbGuardarMateria.setEnabled(true);
-                  
-                    jbNuevoMateria.setEnabled(false);
-                }
+                JOptionPane.showMessageDialog(null, "Debe ingresar el Nombre de la Materia correctamente");
+                jtNombreMateria.setText("");
 
             } else {
 
-                int codigo = Integer.parseInt(jtCodigo.getText());
-                Materia encontrada = mat.buscarMateriaId(codigo);
+                if (jtCodigo.getText().equals("")) {
 
-                if (encontrada.isEstado() == r) {
-                    jtNombreMateria.setText(encontrada.getNombre());
-                    jtAnioMateria.setText(encontrada.getAño() + "");
+                    String nombre = jtNombreMateria.getText();
+                    Materia encontrada = mat.buscarMateria(nombre);
 
-                    jbGuardarMateria.setEnabled(true);
-                    jtNombreMateria.setEnabled(false);
-                    jtAnioMateria.setEnabled(false);
-                    jRadioButtonEstadoMateria.setSelected(false);
-                    jbNuevoMateria.setEnabled(false);
-                    jtCodigo.setEditable(false);
+                    if (encontrada.isEstado() == r) {
+                        jtCodigo.setText(encontrada.getIdMateria() + "");
+                        jtNombreMateria.setText(encontrada.getNombre());
+                        jtAnioMateria.setText(encontrada.getAño() + "");
+
+                        jtNombreMateria.setEnabled(false);
+                        jtAnioMateria.setEnabled(false);
+                        jRadioButtonEstadoMateria.setSelected(false);
+                        jbNuevoMateria.setEnabled(false);
+                        jbGuardarMateria.setEnabled(true);
+                    } else {
+
+                        jtCodigo.setText(encontrada.getIdMateria() + "");
+                        jtNombreMateria.setText(encontrada.getNombre());
+                        jtAnioMateria.setText(encontrada.getAño() + "");
+                        jRadioButtonEstadoMateria.setSelected(true);
+                        jbGuardarMateria.setEnabled(true);
+                        jbNuevoMateria.setEnabled(false);
+                    }
+
                 } else {
-                    jtNombreMateria.setText(encontrada.getNombre());
-                    jtAnioMateria.setText(encontrada.getAño() + "");
 
-                    jbGuardarMateria.setEnabled(true);
-                    jRadioButtonEstadoMateria.setSelected(true);
-                    jbNuevoMateria.setEnabled(false);
+                    int codigo = Integer.parseInt(jtCodigo.getText());
+                    Materia encontrada = mat.buscarMateriaId(codigo);
+                   
+
+                        if (encontrada.isEstado() == r) {
+                            jtNombreMateria.setText(encontrada.getNombre());
+                            jtAnioMateria.setText(encontrada.getAño() + "");
+
+                            jbGuardarMateria.setEnabled(true);
+                            jtNombreMateria.setEnabled(false);
+                            jtAnioMateria.setEnabled(false);
+                            jRadioButtonEstadoMateria.setSelected(false);
+                            jbNuevoMateria.setEnabled(false);
+                            jtCodigo.setEditable(false);
+                        } else {
+                            jtNombreMateria.setText(encontrada.getNombre());
+                            jtAnioMateria.setText(encontrada.getAño() + "");
+
+                            jbGuardarMateria.setEnabled(true);
+                            jRadioButtonEstadoMateria.setSelected(true);
+                            jbNuevoMateria.setEnabled(false);
+
+                        }
+                    
+
                 }
             }
         }
+      } catch (NullPointerException ex) {
+                        JOptionPane.showMessageDialog(null, "Error la materia no existe");
+                    }  
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
 
         LimpiarCampos();
-        jRadioButtonEstadoMateria.setSelected(false);   
+        jRadioButtonEstadoMateria.setSelected(false);
         jtCodigo.setEditable(true);
         jbGuardarMateria.setEnabled(false);
     }//GEN-LAST:event_jbLimpiarActionPerformed
-    public static boolean validarId(String id, String nom) {
-
-        if (id.equals("")) {
-            return nom.matches("[a-zA-Z\\s-]*");  //coloque (\\s-) para que me permita colocar un espacio
-        }
-        return id.matches("[0-9]*");
-    }
+//    public static boolean validarId(String id, String nom) {
+//
+//        if (id.equals("")) {
+//            return nom.matches("[a-zA-Z\\s-]*");  //coloque (\\s-) para que me permita colocar un espacio
+//        }
+//        return id.matches("[0-9]*");
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

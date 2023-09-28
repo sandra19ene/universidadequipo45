@@ -122,7 +122,7 @@ public class AlumnoData {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-
+         try{   
             if (rs.next()) {
                 alumno = new Alumno();
                 alumno.setIdAlumno(id);
@@ -132,18 +132,24 @@ public class AlumnoData {
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setEstado(true);
 
-            } else {
-                JOptionPane.showMessageDialog(null, "El alumno no existe");
+       //     } else {
+       
+                //JOptionPane.showMessageDialog(null, "El alumno no existe");
+            }    
+            } catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Error el alumno no existe " + ex.getMessage());
+        }
 
-            }
+            
             ps.close();
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex )  {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos" + ex.getMessage());
+        
         }
         return alumno;
     }
-
+    
     public Alumno BuscarAlumnoProDni(int dni) {
 
         String sql = "SELECT idAlumno,apellido,nombre,fechaNacimiento,estado FROM alumno WHERE dni=?  ";
@@ -162,10 +168,6 @@ public class AlumnoData {
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setEstado(rs.getBoolean("estado"));
-            } else {
-                JOptionPane.showMessageDialog(null, "El alumno no existe");
-
-
             }
             ps.close();
 

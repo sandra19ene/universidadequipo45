@@ -11,6 +11,7 @@
         <BevelBorder/>
       </Border>
     </Property>
+    <Property name="closable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Actualizacion de Notas"/>
   </Properties>
   <SyntheticProperties>

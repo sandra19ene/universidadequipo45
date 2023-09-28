@@ -40,6 +40,7 @@ public class InscripcionesView extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setClosable(true);
         setTitle("Actualizacion de Notas");
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));

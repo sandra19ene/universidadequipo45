@@ -333,6 +333,9 @@
           </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateFechaNacimiento">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jDateFechaNacimientoMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

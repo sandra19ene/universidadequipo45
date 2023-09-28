@@ -160,6 +160,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
+        jDateFechaNacimiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateFechaNacimientoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -401,12 +407,24 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Debe ingresar el Nombre correctamente");
                     jtNombre.setText("");
                 } else {
+                   
+                    
+                    if(jDateFechaNacimiento.getDate()==null){
+                    
+                      JOptionPane.showMessageDialog(null, "ERROR no ingreso fecha de nacimiento ");
+                      }else{
+                    
+                    
                     SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+                  
+                    
                     String fe = date.format(jDateFechaNacimiento.getDate());
-
+                    
+                 
                     LocalDate fecha = LocalDate.parse(fe);
+                  
 
-                    if (fecha.getYear() <= 2005) {
+                    if (fecha.getYear() <= 2005  ) {
                         int documento = Integer.parseInt(jtDocumento.getText());
                         String apellido = jtApellido.getText();
                         String nombre = jtNombre.getText();
@@ -430,14 +448,18 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                         jRadioButtonEstado.setSelected(false);
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Ingresar una fecha menor a 2006");
+                        JOptionPane.showMessageDialog(null, " ERROR .Ingresar una fecha menor a 2006");
                         jDateFechaNacimiento.setDate(null);
+                        
+                    }
 
                     }
-                }
-            }
+                    
+                    }
+            
     }//GEN-LAST:event_jbNuevoAlumnoActionPerformed
     }
+        }
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
 
         // TODO add your handling code here:
@@ -459,6 +481,10 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtNombreActionPerformed
+
+    private void jDateFechaNacimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateFechaNacimientoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateFechaNacimientoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

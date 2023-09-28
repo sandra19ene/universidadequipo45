@@ -260,7 +260,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
 //            jtNombreMateria.setText("");
 //            jtCodigo.setText("");
 
-        if (!jtCodigo.getText().matches("[0-9]{3}")) {
+        if (!jtCodigo.getText().matches("[0-9]*")) {
 
             JOptionPane.showMessageDialog(null, "Debe ingresar el IdMateria correctamente");
             jtCodigo.setText("");
@@ -274,7 +274,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
 
             } else {
 
-                if (jtAnioMateria.getText().isEmpty() || !jtAnioMateria.getText().matches("[0-9]{2}")) {
+                if (jtAnioMateria.getText().isEmpty() || !jtAnioMateria.getText().matches("[0-9]*")) {
 
                     JOptionPane.showMessageDialog(null, "Debe ingresar el Año del curso correctamente");
                     jtAnioMateria.setText("");

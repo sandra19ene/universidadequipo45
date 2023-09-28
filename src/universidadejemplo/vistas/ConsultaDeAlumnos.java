@@ -79,6 +79,7 @@ public class ConsultaDeAlumnos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtTablaAlumnos.setEnabled(false);
         jScrollPane1.setViewportView(jtTablaAlumnos);
 
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N

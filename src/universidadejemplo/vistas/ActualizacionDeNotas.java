@@ -48,6 +48,7 @@ public class ActualizacionDeNotas extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(153, 153, 255));
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setClosable(true);
         setTitle("Cargar Notas");
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
@@ -240,6 +241,7 @@ public class ActualizacionDeNotas extends javax.swing.JInternalFrame {
 
         int nota = jTable1.getSelectedRow();
         Object notaObtenida = jTable1.getValueAt(nota, 2);
+        try{
         double notaFinal = Double.parseDouble(notaObtenida.toString());
         
 
@@ -248,7 +250,9 @@ public class ActualizacionDeNotas extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese una nota válida.");
         }
-
+        }catch(Exception ex){
+          JOptionPane.showMessageDialog(null, "Ingrese una nota válida.");
+        }
     }
 
 }
